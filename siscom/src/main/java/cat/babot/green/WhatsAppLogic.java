@@ -1,4 +1,6 @@
-package cat.babot;
+package cat.babot.green;
+
+import cat.babot.common.WebAccesManager;
 
 public class WhatsAppLogic {
     private WebAccesManager wam;
@@ -11,12 +13,16 @@ public class WhatsAppLogic {
         this.phone = phone;
     }
 
-    public void start() {
+    public void startByCode() {
         wap.click(wap.codeButton);
         wap.write(phone, wap.phoneInput);
         wap.click(wap.siguienteButton);
         phoneCode = wap.obtainCode();
-        System.out.print("The verification code is: ".concat(phoneCode));
-        System.out.println("Please, insert the code in your phone.");
+        System.out.println("The verification code is: ".concat(phoneCode));
+        System.out.print("Please, insert the code in your phone.");
     }
+    public void startByQr() {
+        wap.
+    }
+
 }

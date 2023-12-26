@@ -1,4 +1,4 @@
-package cat.babot;
+package cat.babot.common;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
@@ -20,6 +20,7 @@ public class WebAccesManager {
         optionsList.add("--incognito");
         optionsList.add("disable-notifications");
         optionsList.add("--remote-allow-origins=*");
+        optionsList.add("--headless=new");
         chromeOptions.addArguments(optionsList);
         chromeOptions.setCapability(CapabilityType.ACCEPT_INSECURE_CERTS, true);
     }
@@ -28,8 +29,8 @@ public class WebAccesManager {
         driver = new ChromeDriver(chromeOptions);
     }
 
-    public static void enterSite() {
-        driver.get("https://web.whatsapp.com/");
+    public static void enterSite(String url) {
+        driver.get(url);
     }
 
     public static void quitSite() {
