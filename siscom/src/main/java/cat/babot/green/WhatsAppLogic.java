@@ -21,8 +21,8 @@ public class WhatsAppLogic {
         System.out.println("The verification code is: ".concat(phoneCode));
         System.out.print("Please, insert the code in your phone.");
     }
+
     public void startByQr() {
-        wap.
     }
 
 }
