@@ -32,6 +32,7 @@ public class Telegram {
 
     public void sendMsg(String msg) {
         String encodedMsg = urlEncoder(msg);
+        System.out.print(encodedMsg);
         try {
             URL obj = new URL(prepareUrl().replace("##", encodedMsg));
             HttpURLConnection con = (HttpURLConnection) obj.openConnection();

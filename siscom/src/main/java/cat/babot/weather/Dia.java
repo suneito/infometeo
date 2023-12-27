@@ -1,19 +1,27 @@
 package cat.babot.weather;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
 
 public class Dia {
+    private final LocalDate data;
     private static final String CELCIUS = "ºC";
+    private static final String MILIMITERS = "mm";
+    private static final String WIND = "km/h";
     protected final Map<Integer, String> temperatura = new HashMap<>();
     protected final Map<Integer, String> cel = new HashMap<>();
     protected final Map<Integer, String> vent = new HashMap<>();
     protected final Map<Integer, String> precipitacio = new HashMap<>();
 
+    public Dia(LocalDate dataDia) {
+        data = dataDia;
+    }
 
     @Override public String toString() {
         StringBuilder result = new StringBuilder();
-        this.cel.forEach((key, value) -> result.append(key).append(" h -> ").append(value).append(" ").append(cel).append("\n"));
+
         return result.toString();
     }
 
@@ -39,5 +47,9 @@ public class Dia {
         result.append("------------------").append("\n");
         values.forEach((key, value) -> result.append(key).append(" h -> ").append(value).append(" ").append(unitats).append("\n"));
         return result.toString();
+    }
+
+    public String getData() {
+        return data.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
     }
 }

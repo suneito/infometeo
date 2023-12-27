@@ -3,6 +3,7 @@ package cat.babot.weather;
 import cat.babot.scraper.ScraperManager;
 import org.w3c.dom.NodeList;
 
+import java.time.LocalDate;
 import java.util.Map;
 import java.util.stream.IntStream;
 
@@ -10,12 +11,15 @@ public class Meteocat extends ScraperManager {
     private Dia avui;
     private Dia dema;
     private Dia pstDema;
+    private Localitat localitat;
 
-    public Meteocat(String vila) {
-        super("https://www.meteo.cat/prediccio/municipal/".concat(vila));
-        avui = new Dia();
-        dema = new Dia();
-        pstDema = new Dia();
+    public Meteocat(Localitat vila) {
+        super("https://www.meteo.cat/prediccio/municipal/".concat(vila.getLocalitatCode()));
+        localitat = vila;
+        LocalDate today = LocalDate.now();
+        avui = new Dia(today);
+        dema = new Dia(today.plusDays(1));
+        pstDema = new Dia(today.plusDays(2));
     }
 
     public void getWeather() {
@@ -62,5 +66,19 @@ public class Meteocat extends ScraperManager {
 
     public Dia getPstDema() {
         return pstDema;
+    }
+
+    public String simplifyedTodayReport() {
+        StringBuilder result = new StringBuilder();
+        result.append(localitat.name()).append(" ").append(avui.getData()).append("\n");
+        result.append("data").append("\n");
+        result.append(getPeuMesInfo());
+        return result.toString();
+    }
+
+    public String getPeuMesInfo() {
+        return new StringBuilder()
+                .append("<i>Més informació <a href=\"")
+                .append(targetUrl).append("\">meteo.cat/vic</a></i>").toString();
     }
 }

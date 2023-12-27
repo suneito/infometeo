@@ -15,8 +15,10 @@ import java.net.URL;
 
 public class ScraperManager {
     private Document targetNode;
+    public final String targetUrl;
 
     public ScraperManager(String targetUrl) {
+        this.targetUrl = targetUrl;
         try {
             HtmlCleaner cleaner = new HtmlCleaner();
             TagNode node = cleaner.clean(new URL(targetUrl));
