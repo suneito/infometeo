@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
-import static cat.babot.common.WebAccesManager.driver;
+import static cat.babot.green.WebAccesManager.driver;
 
 public class WhatsAppPage {
     private final Logger atenea = Logger.getLogger("Actions Web Driver");

@@ -1,38 +1,28 @@
 package cat.babot;
 
-import cat.babot.common.WebAccesManager;
-import cat.babot.green.WhatsAppLogic;
-import org.apache.commons.io.FileUtils;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
+import cat.babot.blue.Telegram;
+import cat.babot.weather.Meteocat;
 
-import java.io.File;
 import java.io.IOException;
-import java.util.Scanner;
-
-import static cat.babot.common.WebAccesManager.driver;
 
 public class Main {
+    public static final String TONA = "082830";
+    public static final String VIC = "082981";
+
+
     public static void main(String[] args) throws IOException {
-        WebAccesManager.createAndStartService();
-        WebAccesManager.createDriver();
-        WebAccesManager.enterSite("https://web.whatsapp.com/");
-
-        loginWhatsApp();
-        //sendMsg("Hello world");
+        Telegram telegram = new Telegram(
+                "bot6424157408",
+                "AAHBjEE4LaGylXYAiiiHSMmyV59eQZwNeqU",
+                "-1002134142785");
+        Meteocat meteocat = new Meteocat(VIC);
+        meteocat.getWeather();
+        telegram.sendMsg(meteocat.getAvui().toStringCel());
+        telegram.sendMsg(meteocat.getAvui().toStringTemperatura());
+        telegram.sendMsg(meteocat.getAvui().toStringVent());
+        telegram.sendMsg(meteocat.getAvui().toStringPrecipitacio());
     }
 
-    private static void loginWhatsApp() throws IOException {
-        try {
-            System.out.print("Please, insert phone number:");
-            Scanner sc = new Scanner(System.in);
-            new WhatsAppLogic(sc.nextLine()).startByCode();
 
-        }catch(Exception e) {
-            File scrFile = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
-            FileUtils.copyFile(scrFile, new File("c:\\tmp\\crashShot.png"));
-            WebAccesManager.quitSite();
-            e.printStackTrace();
-        }
-    }
+
 }

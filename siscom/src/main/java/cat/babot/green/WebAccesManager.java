@@ -1,4 +1,4 @@
-package cat.babot.common;
+package cat.babot.green;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
