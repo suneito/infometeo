@@ -14,6 +14,7 @@ public class Meteocat extends ScraperManager {
 
     public Meteocat(Localitat vila) {
         super("https://www.meteo.cat/prediccio/municipal/".concat(vila.getLocalitatCode()));
+        setTargetNode();
         localitat = vila;
         LocalDate today = LocalDate.now();
         avui = new Dia(today);
