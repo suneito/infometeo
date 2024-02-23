@@ -8,8 +8,10 @@ import java.io.IOException;
 
 public class Main {
     public static void main(String[] args) throws IOException {
-
-    }
+        Meteocat meteocat = new Meteocat(Localitat.VIC);
+        meteocat.getWeather();
+        System.out.print(meteocat.simplifyedTodayReport());
+    }    }
 
 
 
