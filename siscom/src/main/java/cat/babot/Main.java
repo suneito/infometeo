@@ -11,8 +11,5 @@ public class Main {
         Meteocat meteocat = new Meteocat(Localitat.VIC);
         meteocat.getWeather();
         System.out.print(meteocat.simplifyedTodayReport());
-    }    }
-
-
-
+    }
 }
