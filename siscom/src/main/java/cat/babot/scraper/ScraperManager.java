@@ -1,6 +1,6 @@
 package cat.babot.scraper;
 
-import org.jsoup.Jsoup;
+
 import org.jsoup.nodes.Document;
 import java.io.IOException;
 import java.util.List;
@@ -15,7 +15,7 @@ public class ScraperManager {
 
     public Document setTargetNode() {
         try {
-            targetNode = Jsoup.connect(targetUrl).get();
+            targetNode = org.jsoup.Jsoup.connect(targetUrl).get();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
