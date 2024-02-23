@@ -1,17 +1,16 @@
 package cat.babot.weather;
 
 import cat.babot.scraper.ScraperManager;
-import org.w3c.dom.NodeList;
-
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Map;
 import java.util.stream.IntStream;
 
 public class Meteocat extends ScraperManager {
-    private Dia avui;
-    private Dia dema;
-    private Dia pstDema;
-    private Localitat localitat;
+    private final Dia avui;
+    private final Dia dema;
+    private final Dia pstDema;
+    private final Localitat localitat;
 
     public Meteocat(Localitat vila) {
         super("https://www.meteo.cat/prediccio/municipal/".concat(vila.getLocalitatCode()));
@@ -35,25 +34,25 @@ public class Meteocat extends ScraperManager {
         insertIntoDay(obtainPrecipitacio(avui), dia.precipitacio);
     }
 
-    private NodeList obtainTemperatura(DiaLocate dia) {
+    private List<String> obtainTemperatura(DiaLocate dia) {
         return obtainList("//div[@id='" + dia.toString() +"']//th[contains(text(),'Temperatura')]/following-sibling::td");
     }
 
-    private NodeList obtainPrecipitacio(DiaLocate dia) {
+    private List<String> obtainPrecipitacio(DiaLocate dia) {
         return obtainList("//div[@id='" + dia.toString() +"']//th[contains(text(),'Precipitació')]/following-sibling::td");
     }
 
-    private NodeList obtainVent(DiaLocate dia) {
+    private List<String> obtainVent(DiaLocate dia) {
         return obtainList("//div[@id='" + dia.toString() +"']//th[contains(text(),'Vent')]/following-sibling::td");
     }
 
-    private NodeList obtainCel(DiaLocate dia) {
-        return obtainList("//div[@id='" + dia + "']//th[contains(text(),'Cel')]/following-sibling::td/img/@alt");
+    private List<String> obtainCel(DiaLocate dia) {
+        return obtainListAttr("//div[@id='" + dia + "']//th[contains(text(),'Cel')]/following-sibling::td/img", "alt");
     }
 
-    private void insertIntoDay(NodeList list, Map<Integer, String> diaMap) {
-        IntStream.range(0, list.getLength())
-                .forEach(index -> diaMap.put(23-index, list.item(list.getLength()-1-index).getTextContent().trim()));
+    private void insertIntoDay(List<String> stringList, Map<Integer, String> diaMap) {
+        IntStream.range(0, stringList.size())
+                .forEach(index -> diaMap.put(23-index, stringList.get(stringList.size()-1- index).trim()));
     }
 
     public Dia getAvui() {
@@ -70,15 +69,18 @@ public class Meteocat extends ScraperManager {
 
     public String simplifyedTodayReport() {
         StringBuilder result = new StringBuilder();
-        result.append(localitat.name()).append(" ").append(avui.getData()).append("\n");
-        result.append("data").append("\n");
+        result.append("-- Meteocat report --------\n").append(localitat.name()).append(" ").append(avui.getData()).append("\n");
+        result.append("Temperatura - ").append(avui.temperatura).append("\n");
+        result.append("Precipitació - ").append(avui.precipitacio).append("\n");
+        result.append("Vent - ").append(avui.vent).append("\n");
+        result.append("Cel - ").append(avui.cel).append("\n");
         result.append(getPeuMesInfo());
         return result.toString();
     }
 
     public String getPeuMesInfo() {
         return new StringBuilder()
-                .append("<i>Més informació <a href=\"")
+                .append("\n<i>Més informació <a href=\"")
                 .append(targetUrl).append("\">meteo.cat/vic</a></i>").toString();
     }
 }
