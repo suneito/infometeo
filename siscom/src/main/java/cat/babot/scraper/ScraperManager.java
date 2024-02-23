@@ -13,13 +13,12 @@ public class ScraperManager {
         this.targetUrl = targetUrl;
     }
 
-    public Document setTargetNode() {
+    public void setTargetNode() {
         try {
             targetNode = org.jsoup.Jsoup.connect(targetUrl).get();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        return targetNode;
     }
 
     public List<String> obtainList(String expression) {
