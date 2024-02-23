@@ -2,3 +2,4 @@
 siscom/.idea/uiDesigner.xml
 siscom/src/main/java/cat/babot/Main.java
 .idea/
+/siscom/target/
