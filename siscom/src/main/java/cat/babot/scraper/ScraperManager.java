@@ -1,9 +1,6 @@
 package cat.babot.scraper;
 
-import org.htmlcleaner.CleanerProperties;
-import org.htmlcleaner.DomSerializer;
-import org.htmlcleaner.HtmlCleaner;
-import org.htmlcleaner.TagNode;
+import org.jsoup.Jsoup;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 
@@ -11,6 +8,7 @@ import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
+import java.io.IOException;
 import java.net.URL;
 
 public class ScraperManager {
@@ -19,14 +17,16 @@ public class ScraperManager {
 
     public ScraperManager(String targetUrl) {
         this.targetUrl = targetUrl;
-        try {
-            HtmlCleaner cleaner = new HtmlCleaner();
-            TagNode node = cleaner.clean(new URL(targetUrl));
-            targetNode = new DomSerializer(
-                    new CleanerProperties()).createDOM(node);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+//        try {
+//            Document doc = Jsoup.connect("https://en.wikipedia.org/").get();
+//            Elements newsHeadlines = doc.select("#mp-itn b a");
+//            for (Element headline : newsHeadlines) {
+//                log("%s\n\t%s",
+//                        headline.attr("title"), headline.absUrl("href"));
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
     }
 
     public NodeList obtainList(String expression) {
