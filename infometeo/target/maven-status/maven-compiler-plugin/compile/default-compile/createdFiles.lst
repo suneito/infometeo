@@ -1,0 +1,11 @@
+cat\babot\scraper\ScraperManager.class
+cat\babot\weather\Dia.class
+cat\babot\weather\Interpretador.class
+cat\babot\Main.class
+cat\babot\green\WhatsAppPage.class
+cat\babot\weather\DiaLocate.class
+cat\babot\blue\Telegram.class
+cat\babot\weather\Meteocat.class
+cat\babot\green\WebAccesManager.class
+cat\babot\green\WhatsAppLogic.class
+cat\babot\weather\Localitat.class
